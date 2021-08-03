@@ -35,8 +35,9 @@ public class RoomController {
         return "Room added";
     }
     @GetMapping
-    public List<Room> getRooms(){
-        return roomRepository.findAll();
+    public Page<Room> getRooms(@RequestParam int page){
+        Pageable pageable= PageRequest.of(page,10);
+        return roomRepository.findAll(pageable);
     }
     @PutMapping("/{id}")
     public String editRoom(@PathVariable Integer id, @RequestBody RoomDto roomDto){
